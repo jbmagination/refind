@@ -23,7 +23,7 @@ based systems. This is my theme for it.
 ### Automatic
 
 ```
-bash <(wget -qO- https://jbmagination.com/refind-jbm/install)
+bash <(wget -qO- https://jbmagination.com/refind/install)
 ```
 Here's an example menuentry configuration:
 
