@@ -60,17 +60,6 @@ sudo mkdir /Volumes/ESP/EFI/refind/themes/
 sudo mkdir /Volumes/ESP/EFI/refind/themes/refind-jbm
 wget https://github.com/jbmagination/refind-jbm/releases/download/1.0.0/refind-jbm.zip --directory-prefix=/Volumes/ESP/EFI/refind/themes/
 unzip /Volumes/ESP/EFI/refind/themes/refind-jbm.zip
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-        mountvol S: /S
-        echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
-        bitsadmin /transfer myDownloadJob /download /priority normal https://github.com/jbmagination/refind-jbm/releases/download/1.0.0/refind-jbm.zip S:\EFI\refind\themes\refind-jbm.zip
-        
-elif [[ "$OSTYPE" == "msys" ]]; then
-         mountvol S: /S
-         echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
-elif [[ "$OSTYPE" == "win32" ]]; then
-         mountvol S: /S
-         echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
 else
         echo Operating system type not found or not supported, exiting
         exit
