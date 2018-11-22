@@ -1,0 +1,68 @@
+#!/bin/bash
+
+if [ $(id -u) != 0 ]; then
+   echo "Installing requires root-- please enter your password!"
+   sudo "$0" || echo Sudo privileges couldn't be elevated, exiting!
+   exit
+fi
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        sudo cd /boot/efi/EFI/refind/themes
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+        MountOSXESP() {
+    Temp=$(mount | sed -n -E "/^(\/dev\/disk[0-9]+s[0-9]+) on \/ \(.*$/s//\1/p")
+    if [ $Temp ]; then
+        Temp=$(diskutil list | grep " EFI " | grep -o 'disk.*' | head -n 1)
+        if [ -z $Temp ]; then
+            echo "Warning: root device doesn't have an EFI partition"
+        fi
+    else
+        echo "Warning: root device could not be found"
+    fi
+    if [ -z $Temp ]; then
+        Temp=$(diskutil list | sed -n -E '/^ *[0-9]+:[ ]+EFI EFI[ ]+[0-9.]+ [A-Z]+[ ]+(disk[0-9]+s[0-9]+)$/ { s//\1/p
+                q
+            }' )
+
+        if [ -z $Temp ]; then
+            echo "Could not find an EFI partition. Aborting!"
+            exit 1
+        fi
+    fi
+    Esp=/dev/`echo $Temp`
+    echo "The ESP has been identified as $Esp; attempting to mount it...."
+    Temp=`df -P | grep "$Esp "`
+    MountPoint=`echo $Temp | cut -f 6- -d ' '`
+    if [[ "$MountPoint" == '' ]] ; then
+        if [[ $UID != 0 ]] ; then
+            echo "You must run this program as root or using sudo! Exiting!"
+            exit 1
+        fi
+        MountPoint="/Volumes/ESP"
+        mkdir /Volumes/ESP &> /dev/null
+        mount -t msdos "$Esp" $MountPoint
+        if [[ $? != 0 ]] ; then
+            mount -t hfs "$Esp" $MountPoint
+            if [[ $? != 0 ]] ; then
+                echo "Unable to mount ESP!\n"
+                exit 1
+            fi
+        fi
+    fi
+    echo "The ESP is mounted at $MountPoint"
+} MountOSXESP()
+echo "include themes/refind-jbm/theme.conf" >> /Volumes/ESP/EFI/refind/refind.conf
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+        mountvol S: /S
+echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
+elif [[ "$OSTYPE" == "msys" ]]; then
+         mountvol S: /S
+         echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
+elif [[ "$OSTYPE" == "win32" ]]; then
+         mountvol S: /S
+         echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
+else
+        echo Operating system type not found or not supported, exiting
+        exit
+fi
+
