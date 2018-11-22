@@ -7,7 +7,11 @@ if [ $(id -u) != 0 ]; then
 fi
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
-        sudo cd /boot/efi/EFI/refind/themes
+        sudo sh -c "cd /boot/efi/EFI/refind/themes; echo "include themes/refind-jbm/theme.conf" >> /boot/efi/EFI/refind/refind.conf"
+        sudo mkdir /boot/efi/EFI/refind/themes/
+        sudo mkdir /boot/efi/EFI/refind/themes/refind-jbm
+        sudo wget https://github.com/jbmagination/refind-jbm/releases/download/1.0.0/refind-jbm.zip --directory-prefix=/boot/efi/EFI/refind/themes/
+        sudo unzip /boot/efi/EFI/refind/themes/refind-jbm.zip
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         MountOSXESP() {
     Temp=$(mount | sed -n -E "/^(\/dev\/disk[0-9]+s[0-9]+) on \/ \(.*$/s//\1/p")
@@ -52,9 +56,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "The ESP is mounted at $MountPoint"
 } MountOSXESP()
 echo "include themes/refind-jbm/theme.conf" >> /Volumes/ESP/EFI/refind/refind.conf
+sudo mkdir /Volumes/ESP/EFI/refind/themes/
+sudo mkdir /Volumes/ESP/EFI/refind/themes/refind-jbm
+wget https://github.com/jbmagination/refind-jbm/releases/download/1.0.0/refind-jbm.zip --directory-prefix=/Volumes/ESP/EFI/refind/themes/
+unzip /Volumes/ESP/EFI/refind/themes/refind-jbm.zip
 elif [[ "$OSTYPE" == "cygwin" ]]; then
         mountvol S: /S
-echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
+        echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
+        bitsadmin /transfer myDownloadJob /download /priority normal https://github.com/jbmagination/refind-jbm/releases/download/1.0.0/refind-jbm.zip S:\EFI\refind\themes\refind-jbm.zip
+        
 elif [[ "$OSTYPE" == "msys" ]]; then
          mountvol S: /S
          echo "include themes/refind-jbm/theme.conf" >> S:\EFI\refind\refind.conf
