@@ -1,0 +1,201 @@
+* { box-sizing: border-box; }
+
+body {
+    margin: 0 20px;
+    background: #FFF;
+    color: #2C3E50;
+    font: 300 1em/1.2em 'Lato', 'sans-serif';
+}
+
+::selection {
+    background: #3498DB;
+    color: #FFF;
+}
+
+a {
+    text-decoration: none;
+    color: #2C3E50;
+    transition: color 400ms;
+    background: linear-gradient(to bottom, #FFF 50%, #E7E7E9 50%) repeat-x;
+    background-size: 2px 2px;
+    background-position: 0 20px;
+}
+
+    a:hover {
+        color: #3498DB;
+        background-image: linear-gradient(to bottom, #FFF 50%, #CCC 50%);
+    }
+
+header {
+    margin: 60px 10px;
+    text-align: center;
+}
+
+    header h1,
+    header h2 {
+        line-height: 1.5em;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    header h1 {
+        font-size: 2.6em;
+    }
+
+        header h1 em {
+            color: #3498DB;
+            font-style: normal;
+        }
+
+    header h2 {
+        font-size: 1.2em;
+    }
+
+#preview {
+    display: block;
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+    border-radius: 2px;
+    box-shadow: 0 0 150px rgba(0, 0, 0, 0.1);
+}
+
+#details {
+    max-width: 900px;
+    margin: 40px auto;
+    position: relative;
+}
+
+#links {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+    #links li {
+        float: left;
+        width: 33.3333%;
+        padding: 0 10px;
+    }
+
+    #links a {
+        display: block;
+        padding: 40px 0 5px 0;
+        position: relative;
+        background: none;
+    }
+
+        #links a:before {
+            font-family: 'FontAwesome';
+            font-size: 1.3em;
+            position: absolute;
+            width: 100%;
+            top: 14px;
+            left: 0;
+        }
+
+        #links a.github:before {
+            content: '\f09b';
+        }
+
+        #links a.install:before {
+            content: '\f019';
+        }
+
+        #links a.author:before {
+            content:'\f08a';
+        }
+
+
+#install {
+    position: absolute;
+    bottom: 55px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 600ms;
+}
+
+    #install ul {
+        display: inline-block;
+        text-align: left;
+    }
+
+    #install.visible {
+        opacity: 1
+    }
+
+ul.commands {
+    font: 0.8em/1.6em 'PT Mono', monospace;
+    list-style: none;
+    padding: 15px 20px;
+    border-radius: 3px;
+    background: #ECF0F1;
+    border: 1px solid #D5D7D9;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.1);
+}
+
+    ul.commands ::selection {
+        background: #E74C3C;
+        color: #FFF;
+    }
+
+    ul.commands li:before {
+        content: '#';
+        color: #E74C3C;
+        padding-right: 5px;
+        font-weight: bold;
+        position: relative;
+        top: 1px;
+    }
+
+ul.commands-tooltip {
+    position: relative;
+}
+
+    ul.commands-tooltip:after,
+    ul.commands-tooltip:before {
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+        border: 12px solid #000;
+        border-color: #ECF0F1 transparent transparent transparent;
+        position: absolute;
+        left: 50%;
+        bottom: -24px;
+        margin-left: -13px;
+    }
+
+    ul.commands-tooltip:before {
+        bottom: -25px;
+        border-color: #D5D7D9 transparent transparent transparent;
+    }
+
+@media (max-width: 720px) {
+
+    header {
+        margin: 20px 10px;
+    }
+
+        header h1 {
+            font-size: 1.6em;
+        }
+
+        header h2 {
+            font-size: 1.2em;
+        }
+
+    #details {
+        margin:  20px auto;
+    }
+
+    #links li {
+        padding: 0 2px;
+        font-size: 0.9em;
+    }
+
+}
