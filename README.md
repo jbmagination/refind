@@ -50,6 +50,6 @@ You can of course also choose your own background!
 
 ### Attribution
 
-Windows icons taken from rEFInd ambience theme
+Windows icons and shutdown icon taken from rEFInd ambience theme
 
 Everything else taken from rEFInd minimal theme
