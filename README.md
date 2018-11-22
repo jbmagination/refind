@@ -1,22 +1,31 @@
-## My rEFInd theme
+# My rEFInd theme
 
 [rEFInd](http://www.rodsbooks.com/refind/) is an easy to use boot manager for UEFI
-based systems. This is a clean and minimal theme for it.
+based systems. This is my theme for it.
 
-### Usage
+## Installation methods
 
- 1. Locate your refind EFI directory. This is commonly `/boot/EFI/refind`
+### Manual 
+
+ 1. Download the zip file from the [releases page](https://github.com/jbmagination/refind-jbm/releases)
+
+ 2. Locate your refind EFI directory. This is commonly `/boot/EFI/refind`
     though it will depend on where you mount your ESP and where rEFInd is
     installed. `fdisk -l` and `mount` may help.
 
- 2. Create a folder called `themes` inside it, if it doesn't already exist
+ 3. Create a folder called `themes` inside it, if it doesn't already exist
 
- 3. Clone this repository into the `themes` directory.
+ 4. Extract the `refind-jbm` folder into the `themes` folder.
 
- 4. To enable the theme add `include themes/refind-jbm/theme.conf` at the end of
+ 5. To enable the theme add `include themes/refind-jbm/theme.conf` at the end of
     `refind.conf`.
 
-Here's an example menuentry configuration (from the screenshot)
+### Automatic
+
+```
+bash <(wget -qO- https://jbmagination.com/refind-jbm/install)
+```
+Here's an example menuentry configuration:
 
 ```nginx
 menuentry "Arch Linux" {
