@@ -28,7 +28,7 @@
 
             <div id="install">
                 <ul class="commands commands-tooltip">
-                    <li>bash < (wget -Qo- https://jbmagination.com/refind/install)</li>
+                    <li>wget -q -O - https://jbmagination.com/refind/install | bash -s -</li>
                     <li>systemctl reboot</li>
                 </ul>
             </div>
