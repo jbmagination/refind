@@ -63,4 +63,4 @@ unzip /Volumes/ESP/EFI/refind/themes/refind-jbm.zip
 else
         echo Operating system type not found or not supported, exiting
         exit
-fi
+fi;
